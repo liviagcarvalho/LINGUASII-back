@@ -1,22 +1,16 @@
-from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mongoengine import connect, DoesNotExist, NotUniqueError
-from datetime import timedelta
-from pydantic import BaseModel, EmailStr, validator
-from typing import Optional
-from jose import JWTError, jwt
-from datetime import datetime, timedelta
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from passlib.hash import bcrypt
+from mongoengine import connect
 
-from models.user import User
+from use_cases.registro import router as registro_router
+#from models.user import User
 
-app = FastAPI(title="Sistema de Autenticação - Línguas II")
+app = FastAPI()
 
 # Conectar ao MongoDB
 connect(db="LinguasII", host="mongodb+srv://liviagcarvalho:12345@cluster.sfj2axl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster")
 
-# Permitir conexão com o React frontend
+# CORS (Não se preocupe com isso por enquanto, é uma configuração de segurança que permite que o frontend acesse a API)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -26,7 +20,13 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "API do Sistema de Línguas II está funcionando!"}
+    return {"message": "API do Sistema de Línguas II esta funcionando!"}
+
+app.include_router(registro_router)
+
+
+
+
 
 # # Configurações do JWT
 # SECRET_KEY = "sua_chave_secreta_muito_segura_aqui_mude_em_producao"

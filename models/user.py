@@ -1,5 +1,14 @@
 from mongoengine import * # Importa o MongoEngine para trabalhar com o MongoDB
 
-# class User(Document): # Define a classe Task que herda de Document do MongoEngine que é a classe base para todos os documentos no MongoDB
+# models/user.py
 
-#FAZER CLASSE USUÁRIO 
+class User(Document):
+    email = EmailField(required=True, unique=True)
+    username = StringField(required=True, unique=True)
+    nome = StringField(required=True)
+    senha = StringField(required=True)  # você pode futuramente fazer hash
+    is_professor = BooleanField(default=False)
+
+    meta = {
+        "collection": "users"  # Nome da coleção no MongoDB
+    }
