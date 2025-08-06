@@ -1,11 +1,23 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from mongoengine import connect
+from middlewares.jwt_auth import JWTMiddleware
+from fastapi.middleware import Middleware
+
 
 from use_cases.registro import router as registro_router
+from use_cases.login import router as login_router
+from use_cases.protegida import router as protegida_router
+
+
+
 #from models.user import User
 
-app = FastAPI()
+app = FastAPI(
+    middleware=[
+        Middleware(JWTMiddleware)
+    ]
+)
 
 # Conectar ao MongoDB
 connect(db="LinguasII", host="mongodb+srv://liviagcarvalho:12345@cluster.sfj2axl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster")
@@ -23,7 +35,8 @@ async def root():
     return {"message": "API do Sistema de Línguas II esta funcionando!"}
 
 app.include_router(registro_router)
-
+app.include_router(login_router)
+app.include_router(protegida_router)
 
 
 
