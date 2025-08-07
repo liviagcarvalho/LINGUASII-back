@@ -28,12 +28,14 @@ async def registrar_usuario(dados: RegistroRequest):
 
     # Criar usuário (is_professor fixo como False)
     novo_usuario = User(
-        email=dados.email,
-        username=dados.username,
-        nome=dados.nome,
-        senha=senha_hash.decode('utf-8'),
-        is_professor=False
+    email=dados.email,
+    username=dados.username,
+    nome=dados.nome,
+    senha=senha_hash.decode('utf-8'),
+    is_professor=False,
+    creditos=0  # novo campo
     )
+
     novo_usuario.save()
 
     return {"mensagem": "Usuário cadastrado com sucesso."}

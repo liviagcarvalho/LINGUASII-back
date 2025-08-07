@@ -3,3 +3,9 @@ source venv/bin/activate
 conda deactivate
 
 uvicorn main:app --reload
+
+"email": "aluno@email.com",
+  "username": "aluno01",
+  "nome": "Aluno Exemplo",
+  "senha": "123",
+  "confirmar_senha": "123"

@@ -35,12 +35,17 @@ async def login(dados: LoginRequest):
         raise HTTPException(status_code=401, detail="Senha incorreta.")
 
     # Gerar token JWT
+
     payload = {
-        "sub": str(user.id),
-        "username": user.username,
-        "is_professor": user.is_professor,
-        "exp": datetime.utcnow() + timedelta(minutes=EXPIRATION_MINUTES)
-    }
+    "sub": str(user.id),
+    "username": user.username,
+    "email": user.email,
+    "is_professor": user.is_professor,
+    "creditos": user.creditos,
+    "exp": datetime.utcnow() + timedelta(minutes=EXPIRATION_MINUTES)
+    }   
+
+
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
     return {"access_token": token}

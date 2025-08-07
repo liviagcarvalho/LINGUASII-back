@@ -6,9 +6,11 @@ class User(Document):
     email = EmailField(required=True, unique=True)
     username = StringField(required=True, unique=True)
     nome = StringField(required=True)
-    senha = StringField(required=True)  # você pode futuramente fazer hash
+    senha = StringField(required=True)
     is_professor = BooleanField(default=False)
+    creditos = IntField(default=0)  # Novo campo adicionado
 
     meta = {
-        "collection": "users"  # Nome da coleção no MongoDB
+        "collection": "users"
     }
+
