@@ -9,6 +9,9 @@ from use_cases.registro import router as registro_router
 from use_cases.login import router as login_router
 from use_cases.protegida import router as protegida_router
 from use_cases.perfil import router as perfil_router
+from use_cases.aula import router as aula_router  
+
+
 
 
 
@@ -40,6 +43,7 @@ app.include_router(registro_router)
 app.include_router(login_router)
 app.include_router(protegida_router)
 app.include_router(perfil_router)
+app.include_router(aula_router)
 
 
 
