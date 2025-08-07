@@ -14,3 +14,4 @@ class User(Document):
         "collection": "users"
     }
 
+

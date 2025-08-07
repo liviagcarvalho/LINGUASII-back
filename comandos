@@ -4,8 +4,11 @@ conda deactivate
 
 uvicorn main:app --reload
 
+AULNO TESTE
 "email": "aluno@email.com",
-  "username": "aluno01",
-  "nome": "Aluno Exemplo",
-  "senha": "123",
-  "confirmar_senha": "123"
+"username": "aluno01",
+"nome": "Aluno Exemplo",
+"senha": "123",
+"confirmar_senha": "123"
+
+PROF TESTE
