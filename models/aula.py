@@ -1,3 +1,4 @@
+# models/aula.py
 from mongoengine import (
     Document,
     StringField,
@@ -5,7 +6,7 @@ from mongoengine import (
     ReferenceField,
     ListField,
     IntField,
-    ValidationError
+    ValidationError,
 )
 from models.user import User
 
@@ -14,12 +15,13 @@ class Aula(Document):
     lingua = StringField(required=True, choices=["ingles", "espanhol"])
     data = DateTimeField(required=True)
     professor = ReferenceField(User, required=True)
-    alunos = ListField(ReferenceField(User), required=False, max_length=4)  # ❗️não é mais required
+    alunos = ListField(ReferenceField(User), required=False, max_length=4)
     creditos = IntField(required=True)
-    imagem = StringField()  # URL ou caminho da imagem
+    link_meet = StringField()  # <<< novo campo
+    # imagem REMOVIDA
 
     def clean(self):
-        # Permitir aulas sem alunos no momento da criação
+        # Permitir aulas sem alunos na criação
         if self.alunos:
             if self.tipo == "particular" and len(self.alunos) != 1:
                 raise ValidationError("Aula particular deve ter exatamente 1 aluno.")
@@ -33,5 +35,6 @@ class Aula(Document):
             self.creditos = 1
 
     meta = {
-        "collection": "aulas"
+        "collection": "aulas",
+        "strict": False,  # ignora campos extras nos docs antigos
     }
